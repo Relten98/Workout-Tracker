@@ -3,12 +3,13 @@
 
 // Dependencies
 const express = require('express');
+const logger = require("morgan");
 const mongoose = require("mongoose");
-const db = require("../models");
-
+const routes = require("./routes/apiroutes.js");
 
 // Imports express to a proper var
 const app = express();
+
 // Very important.
 const birds = 15000;
 
@@ -17,7 +18,6 @@ const db = require('./models');
 
 // Port information
 const PORT = process.env.PORT || 8080;
-
 
 
 // Sets up the Express app to handle data parsing
@@ -30,8 +30,8 @@ app.use(express.static('./'));
 app.use(express.static('public'));
 
 // Routes
-
-// { INSERT ROUTES HERE. }
+app.use(routes);
+require("./routes/htmlroutes.js")(app);
 
 // Starts the server to begin listening
 app.listen(PORT, function () {
