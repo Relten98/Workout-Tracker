@@ -1,3 +1,4 @@
+// An async function to start the workout plan.
 async function initWorkout() {
   const lastWorkout = await API.getLastWorkout();
   console.log("Last workout:", lastWorkout);
@@ -19,6 +20,7 @@ async function initWorkout() {
   }
 }
 
+// Counts excercises
 function tallyExercises(exercises) {
   const tallied = exercises.reduce((acc, curr) => {
     if (curr.type === "resistance") {
@@ -33,6 +35,7 @@ function tallyExercises(exercises) {
   return tallied;
 }
 
+// Formats the date so it doesn't look like a messy string.
 function formatDate(date) {
   const options = {
     weekday: "long",
@@ -44,6 +47,7 @@ function formatDate(date) {
   return new Date(date).toLocaleDateString(options);
 }
 
+// Puts the information for the workout plan in a way that is readable.
 function renderWorkoutSummary(summary) {
   const container = document.querySelector(".workout-stats");
 

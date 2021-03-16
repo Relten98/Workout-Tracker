@@ -1,14 +1,17 @@
+// Dependancies
 const mongoose = require("mongoose");
 const db = require("../models");
 
+// Connects to Mongodb
 mongoose.connect("mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
 
+// Populates mongodb with the information we will be using for the application.
 let workoutSeed = [
   {
-    day: new Date().setDate(new Date().getDate()-10),
+    day: new Date().setDate(new Date().getDate() - 10),
     exercises: [
       {
         type: "resistance",
@@ -21,7 +24,7 @@ let workoutSeed = [
     ]
   },
   {
-    day: new Date().setDate(new Date().getDate()-9),
+    day: new Date().setDate(new Date().getDate() - 9),
     exercises: [
       {
         type: "resistance",
@@ -34,7 +37,7 @@ let workoutSeed = [
     ]
   },
   {
-    day: new Date().setDate(new Date().getDate()-8),
+    day: new Date().setDate(new Date().getDate() - 8),
     exercises: [
       {
         type: "resistance",
@@ -47,7 +50,7 @@ let workoutSeed = [
     ]
   },
   {
-    day: new Date().setDate(new Date().getDate()-7),
+    day: new Date().setDate(new Date().getDate() - 7),
     exercises: [
       {
         type: "cardio",
@@ -58,7 +61,7 @@ let workoutSeed = [
     ]
   },
   {
-    day: new Date().setDate(new Date().getDate()-6),
+    day: new Date().setDate(new Date().getDate() - 6),
     exercises: [
       {
         type: "resistance",
@@ -71,7 +74,7 @@ let workoutSeed = [
     ]
   },
   {
-    day: new Date().setDate(new Date().getDate()-5),
+    day: new Date().setDate(new Date().getDate() - 5),
     exercises: [
       {
         type: "resistance",
@@ -124,6 +127,7 @@ let workoutSeed = [
   }
 ];
 
+// Cleans up the records, catches errors, and lets the user know the records have been inserted into MONGOD
 db.Workout.deleteMany({})
   .then(() => db.Workout.collection.insertMany(workoutSeed))
   .then(data => {

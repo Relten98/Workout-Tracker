@@ -1,39 +1,46 @@
-// LETS DO THIS!!!!
-// { INSERT BFG DIVISION HERE.}
+// BFG DIVISION? BFG DIVISION.
 
 // Dependencies
-const express = require('express');
-const logger = require("morgan");
 const mongoose = require("mongoose");
+const express = require('express');
 const routes = require("./routes/apiroutes.js");
-
-// Imports express to a proper var
-const app = express();
 
 // Very important.
 const birds = 15000;
 
-// Load models folder
-const db = require('./models');
+// A handy logger
+const logger = require("morgan");
+
+// Imports express to a proper var
+const wrkapp = express();
+
+// Express stuff
+wrkapp.use(logger("dev"));
+
+wrkapp.use(express.json());
+wrkapp.use(express.static("public"));
 
 // Port information
 const PORT = process.env.PORT || 8080;
 
+// HTML router
+wrkapp.use(routes);
+require("./routes/htmlroutes.js")(wrkapp);
+
 
 // Sets up the Express app to handle data parsing
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/seeders'));
-app.use(express.static('./'));
+wrkapp.use(express.static(__dirname + '/public'));
+wrkapp.use(express.static(__dirname + '/seeders'));
+wrkapp.use(express.static('./'));
 
 
 // Static directory
-app.use(express.static('public'));
+wrkapp.use(express.static('public'));
 
-// Routes
-app.use(routes);
-require("./routes/htmlroutes.js")(app);
 
 // Starts the server to begin listening
-app.listen(PORT, function () {
+wrkapp.listen(PORT, function () {
     console.log(`${birds} are listening in on PORT ${PORT}`)
 });
+
+module.exports = db;
