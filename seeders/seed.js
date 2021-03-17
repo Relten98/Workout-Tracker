@@ -1,14 +1,12 @@
-// Dependancies
-const mongoose = require("mongoose");
-let model = require("../models/model.js");
+let mongoose = require("mongoose");
 
-// Connects to Mongodb
-mongoose.connect("mongodb://localhost/workout", {
+let wrkoutmdl = require("../models/model.js");
+
+mongoose.connect("mongodb://localhost/fitnesstrackerDB", {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
 });
 
-// Populates mongodb with the information we will be using for the application.
 let workoutSeed = [
   {
     day: new Date().setDate(new Date().getDate() - 10),
@@ -19,9 +17,9 @@ let workoutSeed = [
         duration: 20,
         weight: 100,
         reps: 10,
-        sets: 4
-      }
-    ]
+        sets: 4,
+      },
+    ],
   },
   {
     day: new Date().setDate(new Date().getDate() - 9),
@@ -32,9 +30,9 @@ let workoutSeed = [
         duration: 20,
         weight: 300,
         reps: 10,
-        sets: 4
-      }
-    ]
+        sets: 4,
+      },
+    ],
   },
   {
     day: new Date().setDate(new Date().getDate() - 8),
@@ -45,9 +43,9 @@ let workoutSeed = [
         duration: 25,
         weight: 185,
         reps: 8,
-        sets: 4
-      }
-    ]
+        sets: 4,
+      },
+    ],
   },
   {
     day: new Date().setDate(new Date().getDate() - 7),
@@ -56,9 +54,9 @@ let workoutSeed = [
         type: "cardio",
         name: "Running",
         duration: 25,
-        distance: 4
-      }
-    ]
+        distance: 4,
+      },
+    ],
   },
   {
     day: new Date().setDate(new Date().getDate() - 6),
@@ -69,9 +67,9 @@ let workoutSeed = [
         duration: 20,
         weight: 285,
         reps: 10,
-        sets: 4
-      }
-    ]
+        sets: 4,
+      },
+    ],
   },
   {
     day: new Date().setDate(new Date().getDate() - 5),
@@ -82,9 +80,9 @@ let workoutSeed = [
         duration: 20,
         weight: 300,
         reps: 10,
-        sets: 4
-      }
-    ]
+        sets: 4,
+      },
+    ],
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() - 4)),
@@ -95,9 +93,9 @@ let workoutSeed = [
         duration: 30,
         weight: 300,
         reps: 10,
-        sets: 4
-      }
-    ]
+        sets: 4,
+      },
+    ],
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() - 3)),
@@ -108,9 +106,9 @@ let workoutSeed = [
         duration: 20,
         weight: 300,
         reps: 10,
-        sets: 4
-      }
-    ]
+        sets: 4,
+      },
+    ],
   },
   {
     day: new Date(new Date().setDate(new Date().getDate() - 2)),
@@ -121,20 +119,19 @@ let workoutSeed = [
         duration: 20,
         weight: 300,
         reps: 10,
-        sets: 4
-      }
-    ]
-  }
+        sets: 4,
+      },
+    ],
+  },
 ];
 
-// Cleans up the records, catches errors, and lets the user know the records have been inserted into MONGOD
-model.deleteMany({})
-  .then(() => model.collection.insertMany(workoutSeed))
-  .then(data => {
+wrkoutmdl.deleteMany({})
+  .then(() => wrkoutmdl.collection.insertMany(workoutSeed))
+  .then((data) => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });
