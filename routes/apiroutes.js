@@ -2,16 +2,17 @@
 const mongoose = require("mongoose");
 
 // Express stuff
+
 const express = require("express");
 
-const router = express.Router();
+const routes = express.Router();
 
 // The workout model, as defined in models/models.js
 const Wrkoutmodel = require("../models/model.js");
 
 
 // API route for Wrkoutmodel defined on line 9
-router.post('/api/workouts', ({ body }, res) => {
+routes.post('/api/workouts', ({ body }, res) => {
     Wrkoutmodel.create({})
         .then((dbWrkoutmodel) => {
             res.json(dbWrkoutmodel);
@@ -21,7 +22,7 @@ router.post('/api/workouts', ({ body }, res) => {
         });
 });
 
-router.put('/api/workouts/:id', ({ params, body }, res) => {
+routes.put('/api/workouts/:id', ({ params, body }, res) => {
     console.log('params', body, params);
 
     Wrkoutmodel.findOneAndUpdate(
@@ -40,7 +41,7 @@ router.put('/api/workouts/:id', ({ params, body }, res) => {
         });
 });
 
-router.get('/api/workouts', (req, res) => {
+routes.get('/api/workouts', (req, res) => {
     Wrkoutmodel.find({})
     .then((dbWrkoutmodel) => {
         res.json(dbWrkoutmodel);
@@ -52,7 +53,7 @@ router.get('/api/workouts', (req, res) => {
     });
 });
 
-router.get('/api/workouts/range', (req, res) => {
+routes.get('/api/workouts/range', (req, res) => {
     Wrkoutmodel.find({})
     .limit(8)
     .then((dbWrkoutmodel) => {
@@ -64,7 +65,5 @@ router.get('/api/workouts/range', (req, res) => {
         res.json(err);
     });
 });
-
-let routes = {};
 
 module.exports = routes;

@@ -1,6 +1,6 @@
 // Dependancies
 const mongoose = require("mongoose");
-const db = require("../models");
+let model = require("../models/model.js");
 
 // Connects to Mongodb
 mongoose.connect("mongodb://localhost/workout", {
@@ -128,8 +128,8 @@ let workoutSeed = [
 ];
 
 // Cleans up the records, catches errors, and lets the user know the records have been inserted into MONGOD
-db.Workout.deleteMany({})
-  .then(() => db.Workout.collection.insertMany(workoutSeed))
+model.deleteMany({})
+  .then(() => model.collection.insertMany(workoutSeed))
   .then(data => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);
