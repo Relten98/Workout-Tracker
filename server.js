@@ -1,8 +1,8 @@
 // BFG DIVISION? BFG DIVISION.
 
 // Dependencies
-const mongoose = require("mongoose");
 const express = require('express');
+const mongoose = require("mongoose");
 const routes = require("./routes/apiroutes.js");
 
 // Very important.
