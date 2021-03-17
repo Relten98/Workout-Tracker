@@ -1,21 +1,18 @@
 // Dependencies
-const mongoose = require("mongoose");
-
-// Express stuff
-
 const express = require("express");
 
 const routes = express.Router();
 
-// The workout model, as defined in models/models.js
-const Wrkoutmodel = require("../models/model.js");
 
+// The workout model, as defined in models/models.js
+const wrkoutmodel = require("../models/model.js");
+const mongoose = require("mongoose");
 
 // API route for Wrkoutmodel defined on line 9
 routes.post('/api/workouts', ({ body }, res) => {
-    Wrkoutmodel.create({})
-        .then((dbWrkoutmodel) => {
-            res.json(dbWrkoutmodel);
+    wrkoutmodel.create({})
+        .then((dbwrkoutmodel) => {
+            res.json(dbwrkoutmodel);
         })
         .catch(({ message }) => {
             console.log(message);
@@ -25,13 +22,13 @@ routes.post('/api/workouts', ({ body }, res) => {
 routes.put('/api/workouts/:id', ({ params, body }, res) => {
     console.log('params', body, params);
 
-    Wrkoutmodel.findOneAndUpdate(
+    wrkoutmodel.findOneAndUpdate(
         { _id: params.id },
         { $push: { excercises: body } },
         { new: true }
     )
-        .then((dbWrkoutmodel) => {
-            res.json(dbWrkoutmodel);
+        .then((dbwrkoutmodel) => {
+            res.json(dbwrkoutmodel);
         })
 
         // I was told I could do an async error catch that just waits for an error,
@@ -42,9 +39,9 @@ routes.put('/api/workouts/:id', ({ params, body }, res) => {
 });
 
 routes.get('/api/workouts', (req, res) => {
-    Wrkoutmodel.find({})
-    .then((dbWrkoutmodel) => {
-        res.json(dbWrkoutmodel);
+    wrkoutmodel.find({})
+    .then((dbwrkoutmodel) => {
+        res.json(dbwrkoutmodel);
     })
 
     // Catches errors
@@ -54,10 +51,10 @@ routes.get('/api/workouts', (req, res) => {
 });
 
 routes.get('/api/workouts/range', (req, res) => {
-    Wrkoutmodel.find({})
+    wrkoutmodel.find({})
     .limit(8)
-    .then((dbWrkoutmodel) => {
-        res.json(dbWrkoutmodel);
+    .then((dbwrkoutmodel) => {
+        res.json(dbwrkoutmodel);
     })
     
     // Catches errors
