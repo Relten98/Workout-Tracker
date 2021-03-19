@@ -1,11 +1,14 @@
+// Dependancies
 let mongoose = require("mongoose");
-let wrkout = require("../models/workout.js");
+let wrkout = require("../models/wrkout.js");
 
+// Connects mongoose
 mongoose.connect("mongodb://localhost/fitnesstrackerDB", {
   useNewUrlParser: true,
   useFindAndModify: false,
 });
 
+// The actual seed to this project
 let wrkoutSeed = [
   {
     day: new Date().setDate(new Date().getDate() - 10),
@@ -127,7 +130,7 @@ let wrkoutSeed = [
 wrkout.deleteMany({})
   .then(() => wrkout.collection.insertMany(wrkoutSeed))
   .then((data) => {
-    console.log(data.result.n + " records inserted");
+    console.log(data.result.n + " records has been successfully inserted");
     process.exit(0);
   })
   .catch((err) => {
