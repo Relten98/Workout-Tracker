@@ -1,66 +1,39 @@
-// Dependencies
-const express = require("express");
+const db = require("../models");
 
-const routes = express.Router();
-
-
-// The workout model, as defined in models/models.js
-const wrkoutmodel = require("../models/workout.js");
-const mongoose = require("mongoose");
-
-// API route for Wrkoutmodel defined on line 9
-routes.post('/api/workouts', ({ body }, res) => {
-    wrkoutmodel.create({})
-        .then((dbwrkoutmodel) => {
-            res.json(dbwrkoutmodel);
+module.exports = function(app) {
+    // App.get to pull up info for the workouts page
+    app.get("/api/workouts", (req, res) => {
+        db.Workout.find({}).then(dbWorkout => {
+            res.json(dbWorkout);
         })
-        .catch(({ message }) => {
-            console.log(message);
+        .catch(err => {
+            res.status(400).json(err);
         });
-});
-
-routes.put('/api/workouts/:id', ({ params, body }, res) => {
-    console.log('params', body, params);
-
-    wrkoutmodel.findOneAndUpdate(
-        { _id: params.id },
-        { $push: { excercises: body } },
-        { new: true }
-    )
-        .then((dbwrkoutmodel) => {
-            res.json(dbwrkoutmodel);
-        })
-
-        // I was told I could do an async error catch that just waits for an error,
-        // Though I do not know....
-        .catch((err) => {
-            res.json(err);
+    })
+    // App.get to pull up info for the range page
+    app.get("/api/workouts/range", ({}, res) => {
+      db.Workout.find({}).then((dbWorkout) => {
+        res.json(dbWorkout);
+      }).catch(err => {
+        res.status(400).json(err);
+      });
+    });
+    // App.post to submit new completed workouts
+    app.post("/api/workouts/", (req, res) => {
+        db.Workout.create(req.body).then((dbWorkout) => {
+          res.json(dbWorkout);
+        }).catch(err => {
+            res.status(400).json(err);
+          });
+      });
+      // App.put to update workouts by MongoDB _id value and update the exercsise body
+      app.put("/api/workouts/:id", (req, res) => {
+        db.Workout.findByIdAndUpdate(
+          { _id: req.params.id }, { exercises: req.body }
+        ).then((dbWorkout) => {
+          res.json(dbWorkout);
+        }).catch(err => {
+          res.status(400).json(err);
         });
-});
-
-routes.get('/api/workouts', (req, res) => {
-    wrkoutmodel.find({})
-    .then((dbwrkoutmodel) => {
-        res.json(dbwrkoutmodel);
-    })
-
-    // Catches errors
-    .catch((err) => {
-        res.json(err);
     });
-});
-
-routes.get('/api/workouts/range', (req, res) => {
-    wrkoutmodel.find({})
-    .limit(8)
-    .then((dbwrkoutmodel) => {
-        res.json(dbwrkoutmodel);
-    })
-    
-    // Catches errors
-    .catch((err) => {
-        res.json(err);
-    });
-});
-
-module.exports = routes;
+};
