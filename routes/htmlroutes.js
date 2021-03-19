@@ -1,24 +1,22 @@
-// Dependencies
+// Dependancies
 const express = require("express");
+const paths = require("path");
 
-// Just for our beloved paths
-let paths = require('path')
+module.exports = function (app) {
 
-// Sets up a path to all three of the pre-provided .js files in the initial set up.
-module.exports = function (wrkapp) {
-
-    wrkapp.get("/exercise", (req, res) => {
-        // Excercises that you can input
-        res.sendfile(paths.join(__dirname, "public/exercise.html"));
+    // Excercises
+    app.get("/exercise", (req, res) => {
+        res.sendFile(paths.join(__dirname, "../public/exercise.html"));
     });
 
-    wrkapp.get("/", (req, res) => {
-        // Our core index file
-        res.sendfile(paths.join(__dirname, "public/index.html"));
+    // Index
+    app.get("/", (req, res) => {
+        res.sendFile(paths.join(__dirname, "../public/index.html"));
     });
 
-    wrkapp.get("/stats", (req, res) => {
-        // Excercise statistics
-        res.sendfile(paths.join(__dirname, "public/stats.html"));
+
+    //   Stats
+    app.get("/stats", (req, res) => {
+        res.sendFile(paths.join(__dirname, "../public/stats.html"));
     });
 };
