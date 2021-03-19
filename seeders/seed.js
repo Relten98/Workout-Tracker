@@ -1,13 +1,12 @@
 let mongoose = require("mongoose");
-
-let wrkoutmdl = require("../models/model.js");
+let wrkout = require("../models/workout.js");
 
 mongoose.connect("mongodb://localhost/fitnesstrackerDB", {
   useNewUrlParser: true,
   useFindAndModify: false,
 });
 
-let workoutSeed = [
+let wrkoutSeed = [
   {
     day: new Date().setDate(new Date().getDate() - 10),
     exercises: [
@@ -125,10 +124,10 @@ let workoutSeed = [
   },
 ];
 
-wrkoutmdl.deleteMany({})
-  .then(() => wrkoutmdl.collection.insertMany(workoutSeed))
+wrkout.deleteMany({})
+  .then(() => wrkout.collection.insertMany(wrkoutSeed))
   .then((data) => {
-    console.log(data.result.n + " records inserted!");
+    console.log(data.result.n + " records inserted");
     process.exit(0);
   })
   .catch((err) => {

@@ -5,7 +5,7 @@ const routes = express.Router();
 
 
 // The workout model, as defined in models/models.js
-const wrkoutmodel = require("../models/model.js");
+const wrkoutmodel = require("../models/wrkout.js");
 const mongoose = require("mongoose");
 
 // API route for Wrkoutmodel defined on line 9
