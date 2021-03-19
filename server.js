@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 
 // the api route
-const router = require("./routes/apiroutes.js");
+const router = require("./routes/api_routes.js");
 
 // Very important.
 const birds = 15000
@@ -28,7 +28,7 @@ const logger = require("morgan");
 
 // routes
 app.use(router);
-require("./routes/htmlroutes.js")(app);
+require("./routes/html_routes.js")(app);
 
 app.listen(PORT, () => {
   console.log(`${birds} are listening on port: ${PORT}!`);

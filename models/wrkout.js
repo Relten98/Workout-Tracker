@@ -1,45 +1,43 @@
-// Dependancies
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Our schema for workouts
-const workoutSchema = new Schema(
-  {
-    day: { type: Date, default: () => new Date() },
-    exercises: [
-      {
-        type: {
-          type: String,
-        },
-        name: {
-          type: String,
-        },
-        duration: {
-          type: Number,
-        },
-        weight: Number,
-        reps: Number,
-        sets: Number,
-        distance: Number,
-      },
-    ],
-  },
-  {
-    toJSON: {
-      virtuals: true,
+const wrkoutSchema = new Schema({
+    day: {
+      type: Date,
+      default: Date.now
     },
-  }
-);
-
-workoutSchema.virtual("totalDuration").get(function () {
-  const duration = this.exercises.reduce((acc, cur) => {
-    return acc + cur.duration;
-  }, 0);
-
-  return duration;
-});
-
-// Sets everything to export out.
-const Workout = mongoose.model("Workout", workoutSchema);
-
-module.exports = Workout;
+    exercises: [
+        {
+          type: {
+            type: String,
+            trim: true,
+            required: true
+          },
+          name: {
+            type: String,
+            trim: true,
+            required: true
+          },
+          duration: {
+            type: Number,
+            required: true
+          },
+          weight: {
+            type: Number
+          },
+          reps: {
+            type: Number
+          },
+          sets: {
+            type: Number
+          },
+          distance: {
+            type: Number
+          }
+      }
+    ]
+  });
+  
+  const wrkout = mongoose.model("wrkout", wrkoutSchema);
+  
+  module.exports = wrkout;

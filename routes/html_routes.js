@@ -9,12 +9,6 @@ module.exports = function (app) {
         res.sendFile(paths.join(__dirname, "../public/exercise.html"));
     });
 
-    // Index
-    app.get("/", (req, res) => {
-        res.sendFile(paths.join(__dirname, "../public/index.html"));
-    });
-
-
     //   Stats
     app.get("/stats", (req, res) => {
         res.sendFile(paths.join(__dirname, "../public/stats.html"));
