@@ -1,5 +1,5 @@
 // BFG DIVISION? BFG DIVISION.
-
+const logger = require("morgan");
 // Our dependancies go here
 const mongoose = require("mongoose");
 const express = require("express");
@@ -22,17 +22,25 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Logger info
-const logger = require("morgan");
- app.use(logger("dev"));
+app.use(logger("dev"));
 
+
+let db = mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/workouttrackerDB",
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  }
+);
 
 // routes
 app.use(router);
 require("./routes/html_routes.js")(app);
 
 app.listen(PORT, () => {
-  console.log(`${birds} are listening on port: ${PORT}!`);
+  console.log(`${birds} are listening on: http://localhost:${PORT}`);
 });
-let db = {};
 
 module.exports = db;
