@@ -13,4 +13,4 @@ The application is smart enough to track your excercises, and provide statistics
 No installation necessary
 
 ### Contact
-Relten: (github/relten98)
+Relten: (https://github.com/Relten98)
